@@ -22,23 +22,22 @@ void Cliente();
 main(){
 	setlocale(LC_ALL, "Portuguese");
 	int opcao;
-	/*
-	(1)Iserir Cliente
-	(2)Inserir Pedido
-	(3)Inserir Produto
-	(4)Sair
-	*/
+	
+	printf("------------------------------------------\n");
+	printf("---------------- PIZZARIA ----------------\n");
+	printf("------------------------------------------\n");
 	
 	do {
 		printf("1 - Cliente\n");	
 		printf("2 - Pedido\n");	
 		printf("3 - Produto\n");	
-		printf("4 - Sair \n ");
+		printf("4 - Sair \n\n");
 		printf("Escolha uma opção: ");
 		scanf("%i", &opcao);
 		
 		switch(opcao){
 			case 1:
+				system("cls");
 				Cliente();
 				getch();
 			break;
@@ -54,11 +53,13 @@ main(){
 			case 4:
 				printf("Obrigado por sua visita! \n");
 				getch();	
+				system("cls");
 			break;
 			
 			default:
 				printf("Opção Invalida \n");
 				getch();
+				system("cls");
 			break;	
 		}
 		
@@ -67,20 +68,30 @@ main(){
 	system("Pause");
 }
 
+void cabecalho(){
+	
+}
+
 void Cliente(){
 	int opcao;
 	FILE* arquivo;
 	CLIENTE cl;
+
 	do{	
+		printf("------------------------------------------\n");
+		printf("----------------- CLIENTE ----------------\n");
+		printf("------------------------------------------\n");
+		
 		printf("1 - Deseja Cadastrar\n");
 		printf("2 - Deseja Excluir\n");
 		printf("3 - Deseja Alterar\n");
-		printf("4 - Voltar ao Menu anterior\n");
+		printf("4 - Voltar ao Menu anterior\n\n");
+		printf("Escolha uma opção: ");
 		scanf("%i", &opcao);
 		
 		switch(opcao){
 			case 1:				
-				arquivo = fopen("Cliente.txt", "ab");
+				arquivo = fopen("Cliente.txt", "w");
 				
 				if(arquivo == NULL){
 					printf("Problemas na Abertura do arquivo\n");
@@ -91,17 +102,36 @@ void Cliente(){
 						gets(cl.nome);
 						
 						fflush(stdin);		
-						printf("Digite o Nome:\n");
-						gets(cl.nome);
+						printf("Digite o CPF/CNPJ:\n");
+						gets(cl.cpf);
 						
 						fflush(stdin);		
-						printf("Digite o Nome:\n");
-						gets(cl.nome);
+						printf("Digite o Fone:\n");
+						gets(cl.fone);
+						
+						printf("Digite o Data Nascimento:\n");
+						scanf("%d %d %d", &cl.nasc.dia, &cl.nasc.mes, &cl.nasc.ano);
+						
+						fwrite(&cl, sizeof(CLIENTE), 1, arquivo);
+						
+						printf("Deseja Cadastrar?(S/N)");
 							
 					}while(getche() == 's');
 					fclose(arquivo);
 				}
 				getche();
+			break;
+			
+			case 2:
+			break;
+			
+			case 3:
+			break;
+			
+			case 4:
+				system("cls");
+				main();
+				getch();
 			break;
 		}
 		
